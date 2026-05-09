@@ -28,6 +28,12 @@
     .module-num.violet{background:linear-gradient(135deg,#a78bfa,#8b5cf6);color:white}
     .module-num.amber{background:linear-gradient(135deg,#fbbf24,#f59e0b);color:white}
     .module-num.emerald{background:linear-gradient(135deg,#34d399,#10b981);color:white}
+    .module-num.sky{background:linear-gradient(135deg,#38bdf8,#0ea5e9);color:white}
+    .module-num.teal{background:linear-gradient(135deg,#2dd4bf,#14b8a6);color:white}
+    .module-num.orange{background:linear-gradient(135deg,#fb923c,#f97316);color:white}
+    .module-num.red{background:linear-gradient(135deg,#fb7185,#f43f5e);color:white}
+    .module-num.indigo{background:linear-gradient(135deg,#818cf8,#6366f1);color:white}
+    .module-num.lime{background:linear-gradient(135deg,#a3e635,#84cc16);color:white}
     .module-info{flex:1;min-width:0}
     .module-title{font-size:.9rem;font-weight:500;color:#1f2937}
     .module-sub{font-size:.7rem;color:#9ca3af;font-weight:300;margin-top:2px}
@@ -61,7 +67,7 @@
   <div class="container">
     <div class="hero-card">
       <h1>Sua jornada de skincare</h1>
-      <p>6 módulos com dicas práticas para você cuidar da pele no seu ritmo. Lembre-se: consistência é a chave!</p>
+      <p>12 módulos completos com dicas práticas para você cuidar da pele no seu ritmo. Lembre-se: consistência é a chave!</p>
       <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
       <p class="progress-label">Seu progresso</p>
     </div>
@@ -266,6 +272,168 @@
           <div class="tip">
             <div class="tip-label">🎉 Parabéns!</div>
             <p>Se você chegou até aqui, já criou um hábito! Continue seguindo a rotina e os resultados vão aparecer naturalmente com o tempo.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Módulo 7 -->
+    <div class="module" data-module="7">
+      <div class="module-header" onclick="toggle(this)">
+        <div class="module-num sky">7</div>
+        <div class="module-info">
+          <div class="module-title">Guia Completo de Proteção Solar</div>
+          <div class="module-sub">O passo mais importante do skincare</div>
+        </div>
+        <div class="module-arrow">▼</div>
+      </div>
+      <div class="module-body">
+        <div class="module-content">
+          <h3>Por que o protetor solar é inegociável ☀️</h3>
+          <p>90% do envelhecimento visível da pele é causado pela exposição solar. O protetor solar é o produto anti-idade mais eficaz que existe.</p>
+          <p><strong>FPS 30 vs FPS 50:</strong> FPS 30 bloqueia ~97% dos raios UVB. FPS 50 bloqueia ~98%. A diferença é pequena, mas o mais importante é reaplicar a cada 2-3 horas.</p>
+          <p><strong>Químico vs Físico:</strong> Filtros químicos absorvem a radiação (texturas leves). Filtros físicos/minerais refletem (melhores para peles sensíveis). Ambos funcionam bem!</p>
+          <p><strong>Quanto aplicar:</strong> A regra dos 3 dedos — aplique uma linha de protetor em cada um dos 3 dedos (indicador, médio e anelar). Essa é a quantidade ideal pro rosto.</p>
+          <div class="tip">
+            <div class="tip-label">🏠 Dentro de casa também?</div>
+            <p>Sim! A luz azul de telas e a luz visível que entra pela janela também contribuem para manchas e envelhecimento. Use protetor mesmo em home office.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Módulo 8 -->
+    <div class="module" data-module="8">
+      <div class="module-header" onclick="toggle(this)">
+        <div class="module-num teal">8</div>
+        <div class="module-info">
+          <div class="module-title">Cuidados com o Contorno dos Olhos</div>
+          <div class="module-sub">Olheiras, bolsas e linhas finas</div>
+        </div>
+        <div class="module-arrow">▼</div>
+      </div>
+      <div class="module-body">
+        <div class="module-content">
+          <h3>A região mais delicada do rosto 👁️</h3>
+          <p>A pele ao redor dos olhos é 10x mais fina que o restante do rosto. Por isso precisa de cuidados específicos.</p>
+          <p><strong>Olheiras escuras:</strong> Podem ser genéticas, vasculares ou por hiperpigmentação. Vitamina C e cafeína tópica podem ajudar a clarear.</p>
+          <p><strong>Bolsas/inchaço:</strong> Compressas frias, rodelas de pepino gelado ou ice roller pela manhã. Dormir com travesseiro elevado também ajuda.</p>
+          <p><strong>Linhas finas:</strong> Hidratação é fundamental! Ácido hialurônico e peptídeos são aliados. Aplique o creme com o dedo anelar (menos pressão).</p>
+          <div class="tip">
+            <div class="tip-label">💤 Dica de sono</div>
+            <p>Dormir de barriga pra cima evita que o rosto fique amassado contra o travesseiro — prevenindo marcas que viram rugas com o tempo.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Módulo 9 -->
+    <div class="module" data-module="9">
+      <div class="module-header" onclick="toggle(this)">
+        <div class="module-num orange">9</div>
+        <div class="module-info">
+          <div class="module-title">Máscaras Caseiras Naturais</div>
+          <div class="module-sub">Receitas com ingredientes da cozinha</div>
+        </div>
+        <div class="module-arrow">▼</div>
+      </div>
+      <div class="module-body">
+        <div class="module-content">
+          <h3>Spa em casa 🍯</h3>
+          <p>Complementos naturais para sua rotina. Use 1-2x por semana como um mimo extra:</p>
+          <p>🍯 <strong>Mel + aveia:</strong> Misture 1 colher de mel com 1 de aveia fina. Aplique no rosto limpo por 15 min. Hidrata e acalma a pele.</p>
+          <p>🥑 <strong>Abacate + iogurte:</strong> Amasse ½ abacate com 1 colher de iogurte natural. 15 min no rosto. Nutre peles secas.</p>
+          <p>☕ <strong>Café + óleo de coco:</strong> 2 colheres de borra de café com 1 de óleo de coco. Esfoliante corporal suave. Massageie em movimentos circulares.</p>
+          <p>🥒 <strong>Pepino + aloe vera:</strong> Bata ½ pepino com 1 colher de gel de aloe vera. Aplique gelado por 10 min. Refresca e desincha.</p>
+          <div class="tip">
+            <div class="tip-label">⚠️ Cuidado</div>
+            <p>Sempre faça um teste em uma pequena área antes. Limão e bicarbonato NÃO devem ser usados no rosto — são muito agressivos e podem causar queimaduras.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Módulo 10 -->
+    <div class="module" data-module="10">
+      <div class="module-header" onclick="toggle(this)">
+        <div class="module-num red">10</div>
+        <div class="module-info">
+          <div class="module-title">Skincare por Idade</div>
+          <div class="module-sub">O que priorizar em cada fase</div>
+        </div>
+        <div class="module-arrow">▼</div>
+      </div>
+      <div class="module-body">
+        <div class="module-content">
+          <h3>Cada idade, uma prioridade 🌸</h3>
+          <p><strong>20-25 anos — Prevenção:</strong> Foco em limpeza, hidratação e protetor solar. Comece vitamina C. A pele ainda se recupera rápido, mas os cuidados agora evitam problemas futuros.</p>
+          <p><strong>25-30 anos — Manutenção:</strong> Adicione antioxidantes (vitamina C, niacinamida). Comece a usar retinol em baixa concentração à noite. Hidratação intensificada.</p>
+          <p><strong>30-40 anos — Tratamento:</strong> Retinol regular, ácido hialurônico, peptídeos. Creme para olhos. Atenção especial a linhas de expressão e manchas.</p>
+          <p><strong>40+ anos — Regeneração:</strong> Fórmulas mais ricas, retinol de concentração média, ceramidas para reforçar a barreira. Esfoliação química suave (AHA/BHA).</p>
+          <div class="tip">
+            <div class="tip-label">💡 Lembre-se</div>
+            <p>Essas são diretrizes gerais. Cada pele é única! A melhor rotina é aquela que você consegue manter com consistência.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Módulo 11 -->
+    <div class="module" data-module="11">
+      <div class="module-header" onclick="toggle(this)">
+        <div class="module-num indigo">11</div>
+        <div class="module-info">
+          <div class="module-title">Hábitos que Transformam sua Pele</div>
+          <div class="module-sub">Sono, água, alimentação e estresse</div>
+        </div>
+        <div class="module-arrow">▼</div>
+      </div>
+      <div class="module-body">
+        <div class="module-content">
+          <h3>Skincare vai além dos produtos 🧘‍♀️</h3>
+          <p>Os melhores produtos do mundo não compensam hábitos ruins. O que você faz no dia a dia impacta diretamente na pele:</p>
+          <ul class="checklist">
+            <li><strong>Água (2L/dia)</strong> — A hidratação começa de dentro. Pele desidratada fica opaca, com linhas e sem elasticidade.</li>
+            <li><strong>Sono (7-8h)</strong> — A pele se regenera durante o sono profundo. Dormir mal = olheiras, inchaço e envelhecimento acelerado.</li>
+            <li><strong>Alimentação</strong> — Frutas, verduras e gorduras boas (abacate, castanhas, azeite) nutrem a pele de dentro pra fora. Excesso de açúcar acelera o envelhecimento.</li>
+            <li><strong>Estresse</strong> — Cortisol alto causa acne, sensibilidade e oleosidade. Meditação, exercício e pausas ajudam muito.</li>
+            <li><strong>Travesseiro limpo</strong> — Troque a fronha a cada 2-3 dias. Bactérias e oleosidade se acumulam e causam acne.</li>
+            <li><strong>Não tocar o rosto</strong> — Suas mãos carregam bactérias o dia todo. Evite apoiar o queixo, coçar e espremer.</li>
+          </ul>
+          <div class="tip">
+            <div class="tip-label">📱 Dica extra</div>
+            <p>Limpe a tela do celular diariamente! Você encosta o rosto nele várias vezes ao dia e ele acumula mais bactérias que um vaso sanitário.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Módulo 12 -->
+    <div class="module" data-module="12">
+      <div class="module-header" onclick="toggle(this)">
+        <div class="module-num lime">12</div>
+        <div class="module-info">
+          <div class="module-title">Rotina Semanal Completa <span class="badge">BÔNUS</span></div>
+          <div class="module-sub">Planner de skincare da semana</div>
+        </div>
+        <div class="module-arrow">▼</div>
+      </div>
+      <div class="module-body">
+        <div class="module-content">
+          <h3>Sua semana organizada 📅</h3>
+          <p>Além da rotina diária (limpeza + hidratação + FPS), distribua os tratamentos ao longo da semana:</p>
+          <ul class="checklist">
+            <li><strong>Segunda:</strong> Sérum de vitamina C (manhã) + Retinol (noite)</li>
+            <li><strong>Terça:</strong> Niacinamida (manhã e noite) + Hidratação extra</li>
+            <li><strong>Quarta:</strong> Esfoliação suave (noite) + Máscara hidratante</li>
+            <li><strong>Quinta:</strong> Sérum de vitamina C (manhã) + Ácido hialurônico (noite)</li>
+            <li><strong>Sexta:</strong> Niacinamida + Creme para olhos</li>
+            <li><strong>Sábado:</strong> Dia de spa! Máscara caseira + massagem facial + ice roller</li>
+            <li><strong>Domingo:</strong> Rotina básica apenas (limpeza + hidratante). Dia de descanso da pele.</li>
+          </ul>
+          <div class="tip">
+            <div class="tip-label">🔄 Importante</div>
+            <p>Essa é uma sugestão de organização. Adapte conforme sua pele responde! Menos é mais — se a pele ficar irritada, reduza a frequência dos ativos.</p>
           </div>
         </div>
       </div>
