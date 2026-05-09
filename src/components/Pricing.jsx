@@ -21,54 +21,19 @@ const MERCHANT_CITY = 'SAO PAULO'
 
 const plans = [
   {
-    id: 'anual',
-    name: 'Anual',
-    tagline: 'Economize com o plano anual',
-    price: '39,90',
-    amount: 39.90,
-    priceInCents: 3990,
-    billing: 'por ano · ~R$ 3,30/mês',
-    accessNote: 'Acesso garantido por 12 meses',
-    highlight: false,
-    badge: null,
-    extras: [
-      'Bônus: Guia de colágeno natural',
-    ],
-    cta: 'Assinar por 1 ano',
-    icon: Clock,
-  },
-  {
     id: 'mensal',
     name: 'Mensal',
-    tagline: 'O mais escolhido pelas alunas',
+    tagline: 'Comece sua jornada de skincare',
     price: '9,99',
     amount: 9.99,
     priceInCents: 999,
     billing: 'por mês · cancele quando quiser',
-    accessNote: 'Acesso ativo enquanto a assinatura estiver ativa',
+    accessNote: 'Acesso imediato a todo o conteúdo',
     highlight: true,
     badge: 'Mais popular',
     extras: [],
-    cta: 'Assinar agora ✨',
+    cta: 'Quero começar agora ✨',
     icon: Sparkles,
-  },
-  {
-    id: 'vitalicio',
-    name: 'Vitalício',
-    tagline: 'Pague uma vez, acesse para sempre',
-    price: '59,90',
-    amount: 59.90,
-    priceInCents: 5990,
-    billing: 'pagamento único',
-    accessNote: 'Acesso ilimitado para sempre',
-    highlight: false,
-    badge: null,
-    extras: [
-      'Bônus: Desafio de 21 dias',
-      'Todas as atualizações incluídas',
-    ],
-    cta: 'Quero acesso vitalício',
-    icon: Infinity,
   },
 ]
 
@@ -232,7 +197,7 @@ function PaymentModal({ plan, onClose }) {
 
 export default function Pricing() {
   // Mobile: show the Anual (highlight) plan first
-  const [activePlanMobile, setActivePlanMobile] = useState('mensal')
+  const [activePlanMobile] = useState('mensal')
   const [selectedPlan, setSelectedPlan] = useState(null)
 
   return (
@@ -248,133 +213,25 @@ export default function Pricing() {
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-5">
         {/* Header */}
         <div className="text-center mb-6 sm:mb-8 md:mb-14 reveal">
-          <p className="text-xs font-medium text-rose-400 tracking-widest uppercase mb-2 sm:mb-3">Planos & preços</p>
+          <p className="text-xs font-medium text-rose-400 tracking-widest uppercase mb-2 sm:mb-3">Acesso completo</p>
           <h2 className="font-display text-[1.65rem] leading-tight sm:text-4xl md:text-5xl font-medium text-gray-800 mb-3 sm:mb-4">
-            Escolha como{' '}
-            <span className="italic text-gradient text-glow">você quer começar</span>
+            Comece sua{' '}
+            <span className="italic text-gradient text-glow">jornada de skincare</span>
           </h2>
           <p className="text-gray-400 font-light text-sm sm:text-base md:text-lg max-w-xl mx-auto px-2 sm:px-0">
-            Todos os planos dão acesso ao programa completo.
-            A diferença é só o período de acesso.
+            Acesso a todas as dicas, rotinas e conteúdos exclusivos
+            por menos de R$ 0,33 por dia.
           </p>
         </div>
 
-        {/* Mobile plan selector tabs */}
-        <div className="flex md:hidden gap-2 mb-4 overflow-x-auto pb-1">
-          {plans.map(plan => (
-            <button
-              key={plan.id}
-              onClick={() => setActivePlanMobile(plan.id)}
-              className={`flex-1 min-w-0 text-xs font-medium py-2.5 px-3 rounded-xl transition-all ${
-                activePlanMobile === plan.id
-                  ? 'bg-gradient-to-r from-rose-400 to-pink-500 text-white shadow-lg shadow-rose-200/40'
-                  : 'bg-white/80 text-gray-500 border border-rose-100'
-              }`}
-            >
-              {plan.name}
-              {plan.badge && <span className="block text-[9px] mt-0.5 opacity-80">✨ Popular</span>}
-            </button>
-          ))}
-        </div>
-
-        {/* Mobile: single plan card */}
-        <div className="md:hidden mb-6">
-          {plans.filter(p => p.id === activePlanMobile).map(plan => {
-            const PlanIcon = plan.icon
-            return (
-              <div
-                key={plan.id}
-                className={`rounded-2xl transition-all duration-300 ${
-                  plan.highlight
-                    ? 'bg-gradient-to-b from-rose-400 to-pink-500 shadow-xl shadow-rose-200/30'
-                    : 'glass-card'
-                }`}
-              >
-                <div className="p-5">
-                  {/* Icon + Name */}
-                  <div className="flex items-center gap-2 mb-1">
-                    <PlanIcon size={13} className={plan.highlight ? 'text-rose-100' : 'text-rose-300'} />
-                    <p className={`text-[10px] font-medium tracking-widest uppercase ${plan.highlight ? 'text-rose-100' : 'text-rose-400'}`}>
-                      {plan.name}
-                    </p>
-                  </div>
-                  <p className={`text-[13px] font-light mb-4 ${plan.highlight ? 'text-rose-100' : 'text-gray-400'}`}>
-                    {plan.tagline}
-                  </p>
-
-                  {/* Price */}
-                  <div className="mb-2">
-                    <div className="flex items-baseline gap-1">
-                      <span className={`text-sm font-light ${plan.highlight ? 'text-white' : 'text-gray-500'}`}>R$</span>
-                      <span className={`font-display text-4xl font-medium ${plan.highlight ? 'text-white' : 'text-gray-800'}`}>
-                        {plan.price}
-                      </span>
-                    </div>
-                    <p className={`text-[11px] font-light mt-0.5 ${plan.highlight ? 'text-rose-200' : 'text-gray-400'}`}>
-                      {plan.billing}
-                    </p>
-                  </div>
-
-                  {/* Access note */}
-                  <p className={`text-[11px] mb-5 font-medium ${plan.highlight ? 'text-rose-100' : 'text-rose-400'}`}>
-                    {plan.accessNote}
-                  </p>
-
-                  {/* CTA */}
-                  <button
-                    onClick={() => setSelectedPlan(plan)}
-                    className={`w-full block text-center text-sm font-medium py-3.5 rounded-xl transition-all mb-5 active:scale-95 cursor-pointer ${
-                      plan.highlight
-                        ? 'bg-white text-rose-500 shadow-lg'
-                        : 'bg-gradient-to-r from-rose-400 to-pink-500 text-white shadow-md shadow-rose-200/30'
-                    }`}
-                  >
-                    {plan.cta}
-                  </button>
-
-                  <div className={`h-px mb-4 ${plan.highlight ? 'bg-rose-300/50' : 'bg-rose-100'}`} />
-
-                  {/* Features */}
-                  <ul className="space-y-2.5">
-                    {features.map((f, j) => (
-                      <li key={j} className="flex items-start gap-2.5">
-                        <div className={`w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 ${plan.highlight ? 'bg-rose-300/30' : 'bg-rose-50'}`}>
-                          <Check size={9} className={plan.highlight ? 'text-rose-100' : 'text-rose-400'} />
-                        </div>
-                        <span className={`text-[13px] font-light leading-relaxed ${plan.highlight ? 'text-rose-50' : 'text-gray-500'}`}>
-                          {f}
-                        </span>
-                      </li>
-                    ))}
-                    {plan.extras.map((e, j) => (
-                      <li key={`extra-${j}`} className="flex items-start gap-2.5">
-                        <div className={`w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 ${plan.highlight ? 'bg-rose-200/30' : 'bg-pink-50'}`}>
-                          <Sparkles size={8} className={plan.highlight ? 'text-rose-200' : 'text-pink-300'} />
-                        </div>
-                        <span className={`text-[13px] font-medium leading-relaxed ${plan.highlight ? 'text-white' : 'text-rose-500'}`}>
-                          {e}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            )
-          })}
-        </div>
-
-        {/* Desktop: 3-column grid */}
-        <div className="hidden md:grid md:grid-cols-3 gap-5 md:gap-6 mb-8 md:mb-14 perspective-container">
+        {/* Single plan — centered */}
+        <div className="max-w-md mx-auto mb-8 md:mb-14 reveal-scale">
           {plans.map((plan) => {
             const PlanIcon = plan.icon
             return (
               <div
                 key={plan.id}
-                className={`relative rounded-3xl transition-all duration-500 card-3d reveal ${
-                  plan.highlight
-                    ? 'bg-gradient-to-b from-rose-400 to-pink-500 shadow-2xl shadow-rose-300/30 md:scale-105 z-10'
-                    : 'glass-card'
-                }`}
+                className="relative rounded-3xl bg-gradient-to-b from-rose-400 to-pink-500 shadow-2xl shadow-rose-300/30"
               >
                 {plan.badge && (
                   <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-10">
@@ -384,67 +241,50 @@ export default function Pricing() {
                   </div>
                 )}
 
-                <div className="p-6 md:p-8">
+                <div className="p-6 sm:p-8">
                   <div className="flex items-center gap-2 mb-1.5">
-                    <PlanIcon size={14} className={plan.highlight ? 'text-rose-100' : 'text-rose-300'} />
-                    <p className={`text-xs font-medium tracking-widest uppercase ${plan.highlight ? 'text-rose-100' : 'text-rose-400'}`}>
+                    <PlanIcon size={14} className="text-rose-100" />
+                    <p className="text-xs font-medium tracking-widest uppercase text-rose-100">
                       {plan.name}
                     </p>
                   </div>
-                  <p className={`text-sm font-light mb-5 leading-relaxed ${plan.highlight ? 'text-rose-100' : 'text-gray-400'}`}>
+                  <p className="text-sm font-light mb-5 leading-relaxed text-rose-100">
                     {plan.tagline}
                   </p>
 
                   <div className="mb-2">
                     <div className="flex items-baseline gap-1">
-                      <span className={`text-sm font-light ${plan.highlight ? 'text-white' : 'text-gray-500'}`}>R$</span>
-                      <span className={`font-display text-4xl md:text-5xl font-medium ${plan.highlight ? 'text-white' : 'text-gray-800'}`}>
+                      <span className="text-sm font-light text-white">R$</span>
+                      <span className="font-display text-5xl md:text-6xl font-medium text-white">
                         {plan.price}
                       </span>
                     </div>
-                    <p className={`text-xs font-light mt-0.5 ${plan.highlight ? 'text-rose-200' : 'text-gray-400'}`}>
+                    <p className="text-xs font-light mt-0.5 text-rose-200">
                       {plan.billing}
                     </p>
                   </div>
 
-                  <p className={`text-xs mb-6 font-medium ${plan.highlight ? 'text-rose-100' : 'text-rose-400'}`}>
+                  <p className="text-xs mb-6 font-medium text-rose-100">
                     {plan.accessNote}
                   </p>
 
                   <button
                     onClick={() => setSelectedPlan(plan)}
-                    className={`w-full text-center text-sm font-medium py-4 rounded-2xl transition-all mb-6 min-h-[52px] flex items-center justify-center active:scale-95 relative overflow-hidden group cursor-pointer ${
-                      plan.highlight
-                        ? 'bg-white text-rose-500 hover:bg-rose-50 shadow-xl'
-                        : 'bg-gradient-to-r from-rose-400 to-pink-500 text-white shadow-lg shadow-rose-200/30 hover:shadow-rose-300/40'
-                    }`}
+                    className="w-full text-center text-sm font-medium py-4 rounded-2xl transition-all mb-6 min-h-[52px] flex items-center justify-center active:scale-95 bg-white text-rose-500 hover:bg-rose-50 shadow-xl cursor-pointer"
                   >
-                    <span className="relative z-10">{plan.cta}</span>
-                    {!plan.highlight && (
-                      <div className="absolute inset-0 bg-gradient-to-r from-rose-500 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    )}
+                    <span>{plan.cta}</span>
                   </button>
 
-                  <div className={`h-px mb-5 ${plan.highlight ? 'bg-rose-300/50' : 'bg-rose-100'}`} />
+                  <div className="h-px mb-5 bg-rose-300/50" />
 
                   <ul className="space-y-3">
                     {features.map((f, j) => (
                       <li key={j} className="flex items-start gap-3">
-                        <div className={`w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 ${plan.highlight ? 'bg-rose-300/30' : 'bg-rose-50'}`}>
-                          <Check size={10} className={plan.highlight ? 'text-rose-100' : 'text-rose-400'} />
+                        <div className="w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 bg-rose-300/30">
+                          <Check size={10} className="text-rose-100" />
                         </div>
-                        <span className={`text-sm font-light leading-relaxed ${plan.highlight ? 'text-rose-50' : 'text-gray-500'}`}>
+                        <span className="text-sm font-light leading-relaxed text-rose-50">
                           {f}
-                        </span>
-                      </li>
-                    ))}
-                    {plan.extras.map((e, j) => (
-                      <li key={`extra-${j}`} className="flex items-start gap-3">
-                        <div className={`w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 ${plan.highlight ? 'bg-rose-200/30' : 'bg-pink-50'}`}>
-                          <Sparkles size={8} className={plan.highlight ? 'text-rose-200' : 'text-pink-300'} />
-                        </div>
-                        <span className={`text-sm font-medium leading-relaxed ${plan.highlight ? 'text-white' : 'text-rose-500'}`}>
-                          {e}
                         </span>
                       </li>
                     ))}
