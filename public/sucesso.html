@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pagamento Confirmado - Essential Glow</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(160deg, #fff1f2 0%, #fdf2f8 40%, #fce7f3 100%);
+      padding: 20px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-radius: 2rem;
+      padding: 3rem 2.5rem;
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 25px 50px rgba(236, 72, 153, 0.1);
+      animation: fadeInUp 0.6s ease;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .icon-wrapper {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #34d399, #10b981);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3); }
+      50% { box-shadow: 0 10px 40px rgba(16, 185, 129, 0.5); }
+    }
+
+    .icon-wrapper svg {
+      width: 36px;
+      height: 36px;
+      color: white;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.75rem;
+      color: #1f2937;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      color: #9ca3af;
+      font-weight: 300;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+
+    .info-box {
+      background: rgba(236, 253, 245, 0.6);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      border-radius: 1rem;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.5rem;
+      text-align: left;
+    }
+
+    .info-box p {
+      font-size: 0.8rem;
+      color: #6b7280;
+      line-height: 1.6;
+    }
+
+    .info-box strong {
+      color: #059669;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, #f472b6, #ec4899);
+      color: white;
+      font-weight: 500;
+      font-size: 0.875rem;
+      padding: 1rem 2rem;
+      border-radius: 9999px;
+      text-decoration: none;
+      transition: all 0.3s;
+      box-shadow: 0 8px 20px rgba(236, 72, 153, 0.3);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(236, 72, 153, 0.4);
+    }
+
+    .confetti {
+      position: fixed;
+      top: -10px;
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      animation: fall linear forwards;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="icon-wrapper">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+      </svg>
+    </div>
+
+    <h1>Pagamento confirmado! 🎉</h1>
+    <p class="subtitle">
+      Seu acesso ao <strong>Essential Glow</strong> já está liberado. 
+      Você deu o primeiro passo para uma transformação incrível!
+    </p>
+
+    <div class="info-box">
+      <p>
+        <strong>📧 Próximos passos:</strong> Você receberá um e-mail com os dados de acesso em até 15 minutos. 
+        Verifique sua caixa de entrada e spam.
+      </p>
+    </div>
+
+    <a href="/" class="btn">
+      ← Voltar ao início
+    </a>
+  </div>
+
+  <script>
+    // Confetti animation
+    const colors = ['#f472b6', '#ec4899', '#a78bfa', '#fbbf24', '#34d399', '#f9a8d4'];
+    for (let i = 0; i < 50; i++) {
+      const confetti = document.createElement('div');
+      confetti.className = 'confetti';
+      confetti.style.left = Math.random() * 100 + 'vw';
+      confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+      confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+      confetti.style.animationDelay = (Math.random() * 3) + 's';
+      confetti.style.width = (Math.random() * 8 + 4) + 'px';
+      confetti.style.height = (Math.random() * 8 + 4) + 'px';
+      document.body.appendChild(confetti);
+    }
+  </script>
+</body>
+</html>
