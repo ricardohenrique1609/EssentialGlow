@@ -2,7 +2,7 @@ import React, { useState, useMemo, useCallback } from 'react'
 import { Check, Sparkles, Shield, Clock, Infinity, ChevronRight, Copy, X, QrCode, Smartphone, ExternalLink, CreditCard, Loader2 } from 'lucide-react'
 import { QRCodeSVG } from 'qrcode.react'
 import { generatePixPayload } from '../utils/pix'
-import { createCheckoutLink } from '../utils/infinitepay'
+import { getCheckoutUrl } from '../utils/infinitepay'
 
 const features = [
   'Dicas completas de skincare para o dia a dia',
@@ -80,11 +80,12 @@ const guarantees = [
 ]
 
 function PaymentModal({ plan, onClose }) {
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(false)
   const [copied, setCopied] = useState(false)
 
-  // Fallback PIX payload (used if InfinitePay fails)
+  const checkoutUrl = getCheckoutUrl(plan.id)
+  const hasCheckoutLink = !!checkoutUrl
+
+  // PIX payload (fallback when no checkout link exists)
   const pixPayload = useMemo(() => {
     return generatePixPayload({
       pixKey: PIX_KEY,
@@ -95,26 +96,11 @@ function PaymentModal({ plan, onClose }) {
     })
   }, [plan])
 
-  const handleInfinitePayCheckout = useCallback(async () => {
-    setLoading(true)
-    setError(false)
-    try {
-      const checkoutUrl = await createCheckoutLink({
-        planName: plan.name,
-        priceInCents: plan.priceInCents,
-        planId: plan.id,
-      })
-      if (checkoutUrl) {
-        window.location.href = checkoutUrl
-      } else {
-        throw new Error('No checkout URL returned')
-      }
-    } catch (err) {
-      console.error('InfinitePay checkout failed:', err)
-      setError(true)
-      setLoading(false)
+  const handleCheckout = () => {
+    if (checkoutUrl) {
+      window.location.href = checkoutUrl
     }
-  }, [plan])
+  }
 
   const handleCopyPix = () => {
     navigator.clipboard.writeText(pixPayload)
@@ -156,26 +142,16 @@ function PaymentModal({ plan, onClose }) {
           R$ {plan.price}
         </p>
 
-        {!error ? (
+        {hasCheckoutLink ? (
           <>
             {/* InfinitePay Checkout Button */}
             <button
-              onClick={handleInfinitePayCheckout}
-              disabled={loading}
-              className="w-full flex items-center justify-center gap-2.5 py-4 rounded-2xl font-medium text-sm transition-all active:scale-95 bg-gradient-to-r from-rose-400 to-pink-500 text-white shadow-lg shadow-rose-200/40 hover:shadow-rose-300/50 disabled:opacity-70 disabled:cursor-not-allowed mb-3"
+              onClick={handleCheckout}
+              className="w-full flex items-center justify-center gap-2.5 py-4 rounded-2xl font-medium text-sm transition-all active:scale-95 bg-gradient-to-r from-rose-400 to-pink-500 text-white shadow-lg shadow-rose-200/40 hover:shadow-rose-300/50 mb-3"
             >
-              {loading ? (
-                <>
-                  <Loader2 size={16} className="animate-spin" />
-                  Preparando checkout...
-                </>
-              ) : (
-                <>
-                  <CreditCard size={16} />
-                  Pagar com Pix ou Cartão
-                  <ExternalLink size={12} className="opacity-60" />
-                </>
-              )}
+              <CreditCard size={16} />
+              Pagar com Pix ou Cartão
+              <ExternalLink size={12} className="opacity-60" />
             </button>
 
             <p className="text-[10px] text-gray-400 font-light mb-5">
@@ -196,14 +172,7 @@ function PaymentModal({ plan, onClose }) {
           </>
         ) : (
           <>
-            {/* Fallback: PIX QR Code (shown when InfinitePay fails) */}
-            <div className="bg-amber-50/80 border border-amber-200 rounded-2xl p-3 mb-4">
-              <p className="text-[11px] text-amber-600 font-medium">
-                Checkout temporariamente indisponível. Use o Pix abaixo:
-              </p>
-            </div>
-
-            {/* QR Code */}
+            {/* PIX QR Code (for plans without checkout link yet) */}
             <div className="bg-white border-2 border-rose-100 rounded-2xl p-4 mb-4 inline-block mx-auto">
               <QRCodeSVG
                 value={pixPayload}
@@ -240,7 +209,7 @@ function PaymentModal({ plan, onClose }) {
             {/* Copy button */}
             <button
               onClick={handleCopyPix}
-              className={`w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl font-medium text-sm transition-all active:scale-95 mb-3 ${
+              className={`w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl font-medium text-sm transition-all active:scale-95 ${
                 copied
                   ? 'bg-green-500 text-white shadow-lg shadow-green-200/50'
                   : 'bg-gradient-to-r from-rose-400 to-pink-500 text-white shadow-lg shadow-rose-200/40 hover:shadow-rose-300/50'
@@ -250,16 +219,8 @@ function PaymentModal({ plan, onClose }) {
               {copied ? 'Código copiado! ✓' : 'Copiar código Pix'}
             </button>
 
-            {/* Retry InfinitePay */}
-            <button
-              onClick={handleInfinitePayCheckout}
-              className="w-full text-xs text-rose-400 hover:text-rose-500 font-medium py-2 transition-colors"
-            >
-              Tentar checkout online novamente →
-            </button>
-
             <p className="text-[11px] text-gray-400 font-light mt-3 leading-relaxed">
-              Após o pagamento via Pix, envie o comprovante por WhatsApp para receber seu acesso.
+              Após o pagamento, envie o comprovante por WhatsApp para receber seu acesso.
             </p>
           </>
         )}

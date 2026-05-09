@@ -1,62 +1,22 @@
 /**
- * InfinitePay Checkout Integration
+ * InfinitePay Checkout - Links diretos
  * 
- * Creates payment links via InfinitePay's Checkout API.
- * The user is redirected to InfinitePay's secure checkout page
- * where they can pay via PIX or credit card.
+ * Cada plano tem um link de checkout fixo criado no painel da InfinitePay.
+ * Mais simples, mais rápido, sem chamadas de API.
  */
 
-const INFINITEPAY_API = 'https://api.checkout.infinitepay.io/links'
-
-// InfiniteTag da conta InfinitePay
-const INFINITE_TAG = 'henrique-ricardo-d94'
-
-// Where to redirect after successful payment
-const REDIRECT_URL = window.location.origin + '/sucesso.html'
+const CHECKOUT_LINKS = {
+  mensal: 'https://checkout.infinitepay.io/henrique-ricardo-d94/47gHsiFvIK',
+  // ⚠️ Crie os links abaixo no painel da InfinitePay e cole aqui:
+  anual: '',    // TODO: criar link do plano Anual (R$39,90)
+  vitalicio: '', // TODO: criar link do plano Vitalício (R$59,90)
+}
 
 /**
- * Creates a checkout link via InfinitePay API
- * @param {object} options
- * @param {string} options.planName - Name of the plan
- * @param {number} options.priceInCents - Price in centavos (e.g., 990 for R$9,90)
- * @param {string} options.planId - Plan identifier for tracking
- * @returns {Promise<string>} The checkout URL
+ * Retorna a URL de checkout do plano
+ * @param {string} planId - ID do plano (mensal, anual, vitalicio)
+ * @returns {string|null} URL do checkout ou null se não configurado
  */
-export async function createCheckoutLink({ planName, priceInCents, planId }) {
-  const orderNsu = `EG_${planId}_${Date.now()}`
-
-  const payload = {
-    handle: INFINITE_TAG,
-    redirect_url: REDIRECT_URL,
-    order_nsu: orderNsu,
-    items: [
-      {
-        description: `Essential Glow - Plano ${planName}`,
-        price: priceInCents,
-        quantity: 1,
-      },
-    ],
-  }
-
-  try {
-    const response = await fetch(INFINITEPAY_API, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-    })
-
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}))
-      console.error('InfinitePay error:', errorData)
-      throw new Error(`Erro ao criar link de pagamento: ${response.status}`)
-    }
-
-    const data = await response.json()
-    return data.checkout_url || data.url || data.link
-  } catch (error) {
-    console.error('Checkout error:', error)
-    throw error
-  }
+export function getCheckoutUrl(planId) {
+  return CHECKOUT_LINKS[planId] || null
 }
