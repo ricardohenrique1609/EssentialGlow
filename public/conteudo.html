@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Essential Glow — Área de Conteúdo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet"/>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Inter',sans-serif;background:linear-gradient(160deg,#fff1f2,#fdf2f8 40%,#fce7f3);min-height:100vh;color:#374151}
+    .header{background:rgba(255,255,255,.7);backdrop-filter:blur(20px);border-bottom:1px solid rgba(251,113,133,.1);padding:1rem 1.5rem;position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between}
+    .logo{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:500;color:#be123c}.logo i{color:#ec4899}
+    .welcome{font-size:.75rem;color:#f472b6;font-weight:500}
+    .container{max-width:720px;margin:0 auto;padding:2rem 1rem 4rem}
+    .hero-card{background:linear-gradient(135deg,#f472b6,#ec4899,#be123c);border-radius:1.5rem;padding:2.5rem 2rem;text-align:center;color:white;margin-bottom:2.5rem;box-shadow:0 20px 40px rgba(236,72,153,.2)}
+    .hero-card h1{font-family:'Playfair Display',serif;font-size:1.6rem;margin-bottom:.5rem;font-weight:500}
+    .hero-card p{font-size:.85rem;opacity:.9;font-weight:300;line-height:1.6}
+    .progress{background:rgba(255,255,255,.2);border-radius:999px;height:6px;margin-top:1.25rem;overflow:hidden}
+    .progress-bar{height:100%;width:0%;background:white;border-radius:999px;transition:width 1s ease}
+    .progress-label{font-size:.65rem;opacity:.7;margin-top:.5rem}
+    .module{background:rgba(255,255,255,.7);backdrop-filter:blur(16px);border:1px solid rgba(251,113,133,.1);border-radius:1.25rem;margin-bottom:1rem;overflow:hidden;transition:all .3s}
+    .module.active{border-color:rgba(236,72,153,.3);box-shadow:0 8px 24px rgba(236,72,153,.08)}
+    .module-header{display:flex;align-items:center;gap:.75rem;padding:1.25rem 1.5rem;cursor:pointer;user-select:none}
+    .module-num{width:36px;height:36px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:600;flex-shrink:0}
+    .module-num.pink{background:linear-gradient(135deg,#fda4af,#f472b6);color:white}
+    .module-num.rose{background:linear-gradient(135deg,#f472b6,#ec4899);color:white}
+    .module-num.fuchsia{background:linear-gradient(135deg,#e879f9,#d946ef);color:white}
+    .module-num.violet{background:linear-gradient(135deg,#a78bfa,#8b5cf6);color:white}
+    .module-num.amber{background:linear-gradient(135deg,#fbbf24,#f59e0b);color:white}
+    .module-num.emerald{background:linear-gradient(135deg,#34d399,#10b981);color:white}
+    .module-info{flex:1;min-width:0}
+    .module-title{font-size:.9rem;font-weight:500;color:#1f2937}
+    .module-sub{font-size:.7rem;color:#9ca3af;font-weight:300;margin-top:2px}
+    .module-arrow{width:24px;height:24px;border-radius:50%;background:#fdf2f8;display:flex;align-items:center;justify-content:center;transition:transform .3s;flex-shrink:0;font-size:.7rem;color:#f472b6}
+    .module.active .module-arrow{transform:rotate(180deg);background:#fce7f3}
+    .module-body{max-height:0;overflow:hidden;transition:max-height .4s ease}
+    .module.active .module-body{max-height:2000px}
+    .module-content{padding:0 1.5rem 1.5rem}
+    .module-content h3{font-family:'Playfair Display',serif;font-size:1rem;color:#be123c;margin-bottom:.75rem}
+    .module-content p{font-size:.8rem;color:#6b7280;line-height:1.7;margin-bottom:.75rem;font-weight:300}
+    .tip{background:linear-gradient(135deg,#fff1f2,#fdf2f8);border-left:3px solid #f472b6;border-radius:0 .75rem .75rem 0;padding:.75rem 1rem;margin:.75rem 0}
+    .tip-label{font-size:.65rem;font-weight:600;color:#ec4899;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.25rem}
+    .tip p{margin:0;font-size:.78rem;color:#6b7280}
+    .step-list{list-style:none;counter-reset:step}
+    .step-list li{counter-increment:step;position:relative;padding-left:2rem;margin-bottom:.75rem;font-size:.8rem;color:#6b7280;line-height:1.6;font-weight:300}
+    .step-list li::before{content:counter(step);position:absolute;left:0;top:1px;width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,#fda4af,#f472b6);color:white;font-size:.6rem;font-weight:600;display:flex;align-items:center;justify-content:center}
+    .checklist{list-style:none}
+    .checklist li{padding:.5rem 0;font-size:.8rem;color:#6b7280;font-weight:300;border-bottom:1px solid rgba(251,113,133,.08);display:flex;align-items:flex-start;gap:.5rem}
+    .checklist li::before{content:"✓";color:#ec4899;font-weight:600;flex-shrink:0;margin-top:1px}
+    .badge{display:inline-block;background:linear-gradient(135deg,#f472b6,#ec4899);color:white;font-size:.6rem;font-weight:600;padding:.25rem .6rem;border-radius:999px;margin-left:.5rem;vertical-align:middle}
+    .disclaimer{text-align:center;font-size:.65rem;color:#d1d5db;margin-top:2rem;line-height:1.6;padding:0 1rem}
+    @media(max-width:640px){.container{padding:1.5rem .75rem 3rem}.hero-card{padding:2rem 1.5rem}.hero-card h1{font-size:1.3rem}.module-header{padding:1rem 1.25rem}.module-content{padding:0 1.25rem 1.25rem}}
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">Essential <i>Glow</i> ✨</div>
+    <div class="welcome">Olá, Glow Girl!</div>
+  </div>
+
+  <div class="container">
+    <div class="hero-card">
+      <h1>Sua jornada de skincare</h1>
+      <p>6 módulos com dicas práticas para você cuidar da pele no seu ritmo. Lembre-se: consistência é a chave!</p>
+      <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+      <p class="progress-label">Seu progresso</p>
+    </div>
+
+    <!-- Módulo 1 -->
+    <div class="module active" data-module="1">
+      <div class="module-header" onclick="toggle(this)">
+        <div class="module-num pink">1</div>
+        <div class="module-info">
+          <div class="module-title">Sua Pele, Seu Tipo</div>
+          <div class="module-sub">Identifique seu tipo de pele</div>
+        </div>
+        <div class="module-arrow">▼</div>
+      </div>
+      <div class="module-body">
+        <div class="module-content">
+          <h3>Conhecendo sua pele</h3>
+          <p>O primeiro passo para qualquer rotina de skincare é entender seu tipo de pele. Cada pele é única e merece cuidados específicos.</p>
+          
+          <div class="tip">
+            <div class="tip-label">🔍 Teste simples</div>
+            <p>Lave o rosto só com água ao acordar. Espere 1 hora sem aplicar nada. Observe: a pele brilha na zona T? Repuxa? Fica confortável? A resposta revela seu tipo.</p>
+          </div>
+          
+          <p><strong>Oleosa:</strong> Brilho excessivo, poros visíveis, tendência a acne. Foque em limpeza suave e produtos oil-free.</p>
+          <p><strong>Seca:</strong> Repuxa, descama, sem brilho. Priorize hidratação rica e evite limpadores agressivos.</p>
+          <p><strong>Mista:</strong> Oleosa na zona T (testa, nariz, queixo) e seca nas bochechas. Use produtos equilibrantes.</p>
+          <p><strong>Sensível:</strong> Vermelhidão, ardência com produtos, reativa. Escolha fórmulas hipoalergênicas e sem fragrância.</p>
+
+          <div class="tip">
+            <div class="tip-label">💡 Dica Essential</div>
+            <p>Seu tipo de pele pode mudar com o clima, idade e hormônios. Reavalie a cada 6 meses!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Módulo 2 -->
+    <div class="module" data-module="2">
+      <div class="module-header" onclick="toggle(this)">
+        <div class="module-num rose">2</div>
+        <div class="module-info">
+          <div class="module-title">Rotina Diária Essencial</div>
+          <div class="module-sub">Manhã e noite em 3 passos</div>
+        </div>
+        <div class="module-arrow">▼</div>
+      </div>
+      <div class="module-body">
+        <div class="module-content">
+          <h3>Rotina da manhã ☀️</h3>
+          <ol class="step-list">
+            <li><strong>Limpeza suave</strong> — Use um gel ou espuma de limpeza adequado ao seu tipo. Água morna, movimentos circulares por 30 segundos.</li>
+            <li><strong>Hidratação</strong> — Aplique um hidratante leve (gel para oleosa, creme para seca). Espalhe com leves batidinhas.</li>
+            <li><strong>Protetor solar</strong> — O passo mais importante! FPS 30 no mínimo, mesmo em dias nublados. Reaplique a cada 2-3 horas.</li>
+          </ol>
+
+          <h3>Rotina da noite 🌙</h3>
+          <ol class="step-list">
+            <li><strong>Limpeza dupla</strong> — Primeiro remova a maquiagem com água micelar ou óleo de limpeza. Depois lave com seu limpador facial.</li>
+            <li><strong>Tratamento</strong> — É a hora dos ativos: sérum de vitamina C, niacinamida ou ácido hialurônico (um de cada vez no início!).</li>
+            <li><strong>Hidratação noturna</strong> — Use um hidratante mais rico que o da manhã. A pele se regenera durante o sono.</li>
+          </ol>
+
+          <div class="tip">
+            <div class="tip-label">⏱️ Tempo total</div>
+            <p>Manhã: 3-5 minutos. Noite: 5-7 minutos. Simples assim!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Módulo 3 -->
+    <div class="module" data-module="3">
+      <div class="module-header" onclick="toggle(this)">
+        <div class="module-num fuchsia">3</div>
+        <div class="module-info">
+          <div class="module-title">Ingredientes que Funcionam</div>
+          <div class="module-sub">Guia de ativos acessíveis</div>
+        </div>
+        <div class="module-arrow">▼</div>
+      </div>
+      <div class="module-body">
+        <div class="module-content">
+          <h3>Os ativos essenciais</h3>
+          <p>Você não precisa de produtos caros. Estes ativos são encontrados em farmácias por preços acessíveis:</p>
+          
+          <p>💧 <strong>Ácido Hialurônico</strong> — Hidratação profunda. Atrai e retém água na pele. Bom para todos os tipos de pele. Use antes do hidratante.</p>
+          <p>✨ <strong>Niacinamida (Vitamina B3)</strong> — Controla oleosidade, minimiza poros, uniformiza o tom. Pode ser usada manhã e noite.</p>
+          <p>🍊 <strong>Vitamina C</strong> — Antioxidante poderoso. Combate radicais livres, ilumina a pele. Use pela manhã, antes do protetor.</p>
+          <p>🌙 <strong>Retinol</strong> — Estimula renovação celular. Combate linhas finas. Use APENAS à noite, comece com baixa concentração.</p>
+          
+          <div class="tip">
+            <div class="tip-label">⚠️ Importante</div>
+            <p>Nunca misture vitamina C com niacinamida na mesma aplicação. Use um de manhã e outro à noite. Retinol + protetor solar é obrigatório!</p>
+          </div>
+
+          <div class="tip">
+            <div class="tip-label">💰 Dica de economia</div>
+            <p>Marcas como Principia, Tracta e Sallve oferecem ativos de qualidade por preços acessíveis. Não precisa gastar fortunas!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Módulo 4 -->
+    <div class="module" data-module="4">
+      <div class="module-header" onclick="toggle(this)">
+        <div class="module-num violet">4</div>
+        <div class="module-info">
+          <div class="module-title">Massagem Facial em 5 Min</div>
+          <div class="module-sub">Técnicas de drenagem e glow</div>
+        </div>
+        <div class="module-arrow">▼</div>
+      </div>
+      <div class="module-body">
+        <div class="module-content">
+          <h3>Técnica passo a passo</h3>
+          <p>A massagem facial pode ajudar a ativar a circulação e dar uma aparência mais descansada à pele. Faça após aplicar o hidratante ou sérum:</p>
+          
+          <ol class="step-list">
+            <li><strong>Testa</strong> — Com os dedos médio e anelar, deslize do centro da testa para as têmporas. Repita 5x.</li>
+            <li><strong>Olhos</strong> — Com o dedo anelar, faça movimentos circulares suaves ao redor dos olhos (de dentro pra fora). 5x cada lado.</li>
+            <li><strong>Bochechas</strong> — Do canto do nariz, deslize para as orelhas com pressão leve. 5x cada lado.</li>
+            <li><strong>Maxilar</strong> — Do queixo, deslize ao longo da mandíbula até as orelhas. 5x cada lado.</li>
+            <li><strong>Pescoço</strong> — De cima para baixo, movimentos suaves em direção à clavícula. 5x.</li>
+          </ol>
+
+          <div class="tip">
+            <div class="tip-label">🧊 Truque extra</div>
+            <p>Faça a massagem com um ice roller ou colher gelada para potencializar o efeito de desinchar. Ótimo pela manhã!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Módulo 5 -->
+    <div class="module" data-module="5">
+      <div class="module-header" onclick="toggle(this)">
+        <div class="module-num amber">5</div>
+        <div class="module-info">
+          <div class="module-title">Erros Comuns de Skincare</div>
+          <div class="module-sub">Mitos e verdades</div>
+        </div>
+        <div class="module-arrow">▼</div>
+      </div>
+      <div class="module-body">
+        <div class="module-content">
+          <h3>Evite estes erros!</h3>
+          <ul class="checklist">
+            <li><strong>Pular o protetor solar</strong> — É o passo mais importante. Sem ele, todo o resto perde eficácia.</li>
+            <li><strong>Usar muitos produtos de uma vez</strong> — Comece com o básico (limpeza, hidratação, FPS) e adicione um ativo por vez.</li>
+            <li><strong>Esfoliar demais</strong> — 1-2x por semana é suficiente. Esfoliar todo dia danifica a barreira da pele.</li>
+            <li><strong>Trocar de produtos toda semana</strong> — Ativos precisam de 4-8 semanas para mostrar resultados. Tenha paciência!</li>
+            <li><strong>Dormir de maquiagem</strong> — A pele se regenera à noite. Maquiagem obstrui os poros e acelera o envelhecimento.</li>
+            <li><strong>Ignorar o pescoço</strong> — Estenda todos os produtos (inclusive protetor) até o pescoço e colo.</li>
+            <li><strong>Espremer espinhas</strong> — Causa inflamação, manchas e cicatrizes. Use produtos com ácido salicílico no local.</li>
+            <li><strong>Lavar o rosto com água quente</strong> — A água quente remove a oleosidade natural. Use sempre água morna ou fria.</li>
+          </ul>
+
+          <div class="tip">
+            <div class="tip-label">🧠 Mito vs Verdade</div>
+            <p><strong>Mito:</strong> "Pele oleosa não precisa de hidratante." <strong>Verdade:</strong> Toda pele precisa! Sem hidratação, a pele oleosa produz ainda mais óleo para compensar.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Módulo 6 -->
+    <div class="module" data-module="6">
+      <div class="module-header" onclick="toggle(this)">
+        <div class="module-num emerald">6</div>
+        <div class="module-info">
+          <div class="module-title">Desafio 21 Dias de Glow <span class="badge">BÔNUS</span></div>
+          <div class="module-sub">Checklist diário progressivo</div>
+        </div>
+        <div class="module-arrow">▼</div>
+      </div>
+      <div class="module-body">
+        <div class="module-content">
+          <h3>Semana 1 — Fundação 🌱</h3>
+          <ul class="checklist">
+            <li>Dia 1-3: Limpeza + hidratante + FPS (rotina básica)</li>
+            <li>Dia 4-5: Adicione a limpeza dupla à noite</li>
+            <li>Dia 6-7: Inclua um sérum (ácido hialurônico é um ótimo começo)</li>
+          </ul>
+          
+          <h3>Semana 2 — Evolução 🌿</h3>
+          <ul class="checklist">
+            <li>Dia 8-10: Adicione massagem facial pela manhã (2 min)</li>
+            <li>Dia 11-12: Faça uma esfoliação suave (1x nesta semana)</li>
+            <li>Dia 13-14: Aplique uma máscara facial hidratante</li>
+          </ul>
+
+          <h3>Semana 3 — Glow ✨</h3>
+          <ul class="checklist">
+            <li>Dia 15-17: Adicione vitamina C pela manhã</li>
+            <li>Dia 18-19: Massagem facial completa (5 min)</li>
+            <li>Dia 20: Máscara facial + ice roller</li>
+            <li>Dia 21: Tire uma selfie e compare com o dia 1! 📸</li>
+          </ul>
+
+          <div class="tip">
+            <div class="tip-label">🎉 Parabéns!</div>
+            <p>Se você chegou até aqui, já criou um hábito! Continue seguindo a rotina e os resultados vão aparecer naturalmente com o tempo.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="disclaimer">
+      ⚠️ Este conteúdo é educacional e informativo. Não substitui orientação de um dermatologista. 
+      Resultados individuais podem variar. Consulte um profissional para condições específicas de pele.<br>
+      © 2025 Essential Glow. Todos os direitos reservados.
+    </p>
+  </div>
+
+  <script>
+    function toggle(header) {
+      const mod = header.closest('.module');
+      mod.classList.toggle('active');
+      updateProgress();
+    }
+    function updateProgress() {
+      const total = document.querySelectorAll('.module').length;
+      const opened = document.querySelectorAll('.module.active').length;
+      const pct = Math.round((opened / total) * 100);
+      document.getElementById('progressBar').style.width = pct + '%';
+    }
+    updateProgress();
+  </script>
+</body>
+</html>

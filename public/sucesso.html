@@ -95,7 +95,7 @@
       color: #059669;
     }
 
-    .btn {
+    .btn-primary {
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -103,17 +103,35 @@
       background: linear-gradient(135deg, #f472b6, #ec4899);
       color: white;
       font-weight: 500;
-      font-size: 0.875rem;
-      padding: 1rem 2rem;
+      font-size: 0.95rem;
+      padding: 1rem 2.5rem;
       border-radius: 9999px;
       text-decoration: none;
       transition: all 0.3s;
       box-shadow: 0 8px 20px rgba(236, 72, 153, 0.3);
+      width: 100%;
+      margin-bottom: 0.75rem;
     }
 
-    .btn:hover {
+    .btn-primary:hover {
       transform: translateY(-2px);
       box-shadow: 0 12px 30px rgba(236, 72, 153, 0.4);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #9ca3af;
+      font-weight: 400;
+      font-size: 0.8rem;
+      padding: 0.5rem 1rem;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .btn-secondary:hover {
+      color: #ec4899;
     }
 
     .confetti {
@@ -143,18 +161,22 @@
 
     <h1>Pagamento confirmado! 🎉</h1>
     <p class="subtitle">
-      Seu acesso ao <strong>Essential Glow</strong> já está liberado. 
-      Você deu o primeiro passo para uma transformação incrível!
+      Seu acesso ao <strong>Essential Glow</strong> já está liberado.<br>
+      Aproveite todo o conteúdo de skincare e autocuidado!
     </p>
 
     <div class="info-box">
       <p>
-        <strong>📧 Próximos passos:</strong> Você receberá um e-mail com os dados de acesso em até 15 minutos. 
-        Verifique sua caixa de entrada e spam.
+        <strong>✨ Seu conteúdo está pronto!</strong> Clique no botão abaixo para acessar 
+        seus módulos de skincare, rotinas e dicas exclusivas.
       </p>
     </div>
 
-    <a href="/" class="btn">
+    <a href="/conteudo.html" class="btn-primary">
+      Acessar meu conteúdo →
+    </a>
+
+    <a href="/" class="btn-secondary">
       ← Voltar ao início
     </a>
   </div>
