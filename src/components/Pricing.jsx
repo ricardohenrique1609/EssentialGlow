@@ -243,15 +243,15 @@ export default function Pricing() {
                 key={plan.id}
                 className="relative rounded-3xl bg-gradient-to-b from-rose-400 to-pink-500 shadow-2xl shadow-rose-300/30"
               >
-                {plan.badge && (
-                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-10">
-                    <span className="bg-white text-rose-500 text-xs font-medium px-4 py-1.5 rounded-full shadow-lg border border-rose-100 whitespace-nowrap shimmer-text">
-                      ✨ {plan.badge}
-                    </span>
-                  </div>
-                )}
-
                 <div className="p-6 sm:p-8">
+                  {plan.badge && (
+                    <div className="mb-5 flex justify-center">
+                      <span className="inline-flex items-center justify-center bg-white/95 text-rose-500 text-xs font-medium px-4 py-1.5 rounded-full shadow-lg border border-white/60 whitespace-nowrap shimmer-text">
+                        ✨ {plan.badge}
+                      </span>
+                    </div>
+                  )}
+
                   <div className="flex items-center gap-2 mb-1.5">
                     <PlanIcon size={14} className="text-rose-100" />
                     <p className="text-xs font-medium tracking-widest uppercase text-rose-100">
