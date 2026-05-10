@@ -10,7 +10,10 @@
     body{font-family:'Inter',sans-serif;background:linear-gradient(160deg,#fff1f2,#fdf2f8 40%,#fce7f3);min-height:100vh;color:#374151}
     .header{background:rgba(255,255,255,.7);backdrop-filter:blur(20px);border-bottom:1px solid rgba(251,113,133,.1);padding:1rem 1.5rem;position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between}
     .logo{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:500;color:#be123c}.logo i{color:#ec4899}
+    .header-actions{display:flex;align-items:center;gap:.75rem}
     .welcome{font-size:.75rem;color:#f472b6;font-weight:500}
+    .header-copy{border:1px solid rgba(236,72,153,.18);background:#fff;color:#be123c;border-radius:999px;padding:.55rem .85rem;font:600 .68rem 'Inter',sans-serif;cursor:pointer;transition:all .2s;white-space:nowrap}
+    .header-copy:hover{background:#fdf2f8;transform:translateY(-1px)}
     .container{max-width:720px;margin:0 auto;padding:2rem 1rem 4rem}
     .hero-card{background:linear-gradient(135deg,#f472b6,#ec4899,#be123c);border-radius:1.5rem;padding:2.5rem 2rem;text-align:center;color:white;margin-bottom:2.5rem;box-shadow:0 20px 40px rgba(236,72,153,.2)}
     .hero-card h1{font-family:'Playfair Display',serif;font-size:1.6rem;margin-bottom:.5rem;font-weight:500}
@@ -18,6 +21,13 @@
     .progress{background:rgba(255,255,255,.2);border-radius:999px;height:6px;margin-top:1.25rem;overflow:hidden}
     .progress-bar{height:100%;width:0%;background:white;border-radius:999px;transition:width 1s ease}
     .progress-label{font-size:.65rem;opacity:.7;margin-top:.5rem}
+    .access-card{background:rgba(255,255,255,.78);backdrop-filter:blur(16px);border:1px solid rgba(251,113,133,.14);border-radius:1.25rem;padding:1rem 1.1rem;margin:-1.3rem 0 2rem;box-shadow:0 12px 30px rgba(236,72,153,.08)}
+    .access-card h2{font-family:'Playfair Display',serif;font-size:1rem;color:#be123c;margin-bottom:.25rem;font-weight:500}
+    .access-card p{font-size:.75rem;color:#6b7280;line-height:1.6;margin-bottom:.85rem;font-weight:300}
+    .access-row{display:flex;gap:.6rem;align-items:stretch}
+    .access-url{flex:1;min-width:0;border:1px solid rgba(251,113,133,.18);background:#fff;border-radius:.9rem;padding:.8rem .9rem;color:#6b7280;font-size:.75rem;overflow:hidden;text-overflow:ellipsis}
+    .copy-access{border:0;background:linear-gradient(135deg,#f472b6,#ec4899);color:white;border-radius:.9rem;padding:0 1rem;font:600 .75rem 'Inter',sans-serif;cursor:pointer;box-shadow:0 8px 18px rgba(236,72,153,.18);transition:all .2s}
+    .copy-access:hover{transform:translateY(-1px);box-shadow:0 10px 22px rgba(236,72,153,.24)}
     .module{background:rgba(255,255,255,.7);backdrop-filter:blur(16px);border:1px solid rgba(251,113,133,.1);border-radius:1.25rem;margin-bottom:1rem;overflow:hidden;transition:all .3s}
     .module.active{border-color:rgba(236,72,153,.3);box-shadow:0 8px 24px rgba(236,72,153,.08)}
     .module-header{display:flex;align-items:center;gap:.75rem;padding:1.25rem 1.5rem;cursor:pointer;user-select:none}
@@ -62,22 +72,48 @@
     .checklist li{padding:.5rem 0;font-size:.8rem;color:#6b7280;font-weight:300;border-bottom:1px solid rgba(251,113,133,.08);display:flex;align-items:flex-start;gap:.5rem}
     .checklist li::before{content:"✓";color:#ec4899;font-weight:600;flex-shrink:0;margin-top:1px}
     .badge{display:inline-block;background:linear-gradient(135deg,#f472b6,#ec4899);color:white;font-size:.6rem;font-weight:600;padding:.25rem .6rem;border-radius:999px;margin-left:.5rem;vertical-align:middle}
+    .section-divider{text-align:center;margin:2.5rem 0 1.5rem;position:relative}
+    .section-divider::before{content:'';position:absolute;top:50%;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(236,72,153,.2),transparent)}
+    .section-tag{display:inline-block;position:relative;background:linear-gradient(135deg,#fdf2f8,#fff1f2);border:1px solid rgba(251,113,133,.15);padding:.5rem 1.25rem;border-radius:999px;font-size:.7rem;font-weight:600;color:#be123c;letter-spacing:.5px}
+    .section-tag span{display:block;font-size:.55rem;color:#f472b6;font-weight:400;margin-top:2px;text-transform:uppercase;letter-spacing:1px}
+    .module-num.hotpink{background:linear-gradient(135deg,#ec4899,#be185d);color:white}
+    .module-num.sapphire{background:linear-gradient(135deg,#3b82f6,#1d4ed8);color:white}
+    .module-num.bronze{background:linear-gradient(135deg,#d97706,#b45309);color:white}
+    .module-num.forest{background:linear-gradient(135deg,#22c55e,#15803d);color:white}
+    .module-num.magenta{background:linear-gradient(135deg,#d946ef,#a21caf);color:white}
     .disclaimer{text-align:center;font-size:.65rem;color:#d1d5db;margin-top:2rem;line-height:1.6;padding:0 1rem}
-    @media(max-width:640px){.container{padding:1.5rem .75rem 3rem}.hero-card{padding:2rem 1.5rem}.hero-card h1{font-size:1.3rem}.module-header{padding:1rem 1.25rem}.module-content{padding:0 1.25rem 1.25rem}}
+    @media(max-width:640px){.header{padding:.85rem 1rem}.welcome{display:none}.container{padding:1.5rem .75rem 3rem}.hero-card{padding:2rem 1.5rem}.hero-card h1{font-size:1.3rem}.access-row{flex-direction:column}.copy-access{padding:.85rem 1rem}.module-header{padding:1rem 1.25rem}.module-content{padding:0 1.25rem 1.25rem}}
   </style>
 </head>
 <body>
   <div class="header">
     <div class="logo">Essential <i>Glow</i> ✨</div>
-    <div class="welcome">Olá, Glow Girl!</div>
+    <div class="header-actions">
+      <button class="header-copy" type="button" data-copy-access>Copiar acesso</button>
+      <div class="welcome">Olá, Glow Girl!</div>
+    </div>
   </div>
 
   <div class="container">
     <div class="hero-card">
       <h1>Sua jornada de skincare</h1>
-      <p>20 módulos completos com dicas práticas para você cuidar da pele no seu ritmo. Lembre-se: consistência é a chave!</p>
+      <p>25 módulos organizados em 5 etapas para você evoluir no seu ritmo. De iniciante a avançada!</p>
       <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
       <p class="progress-label">Seu progresso</p>
+    </div>
+
+    <div class="access-card">
+      <h2>Salve seu link de acesso</h2>
+      <p>Como ainda não temos login, este é o link direto para voltar aos módulos quando quiser. Guarde nos favoritos ou copie para você.</p>
+      <div class="access-row">
+        <div class="access-url" id="accessUrl">https://essentialglow.netlify.app/conteudo.html</div>
+        <button class="copy-access" type="button" data-copy-access>Copiar link</button>
+      </div>
+    </div>
+
+    <!-- ETAPA 1 -->
+    <div class="section-divider">
+      <div class="section-tag">🌱 Etapa 1 — Fundamentos<span>Módulos 1-5 · Comece aqui</span></div>
     </div>
 
     <!-- Módulo 1 -->
@@ -169,7 +205,7 @@
           
           <div class="tip">
             <div class="tip-label">⚠️ Importante</div>
-            <p>Nunca misture vitamina C com niacinamida na mesma aplicação. Use um de manhã e outro à noite. Retinol + protetor solar é obrigatório!</p>
+            <p>Se sua pele for sensível, alterne vitamina C e niacinamida em horários diferentes até entender sua tolerância. Retinol deve ficar para a noite e exige protetor solar no dia seguinte.</p>
           </div>
 
           <div class="tip">
@@ -243,6 +279,11 @@
       </div>
     </div>
 
+    <!-- ETAPA 2 -->
+    <div class="section-divider">
+      <div class="section-tag">🌿 Etapa 2 — Técnicas & Rotinas<span>Módulos 6-10 · Evolua sua rotina</span></div>
+    </div>
+
     <!-- Módulo 6 -->
     <div class="module" data-module="6">
       <div class="module-header" onclick="toggle(this)">
@@ -304,7 +345,7 @@
           <p><strong>Quanto aplicar:</strong> A regra dos 3 dedos — aplique uma linha de protetor em cada um dos 3 dedos (indicador, médio e anelar). Essa é a quantidade ideal pro rosto.</p>
           <div class="tip">
             <div class="tip-label">🏠 Dentro de casa também?</div>
-            <p>Sim! A luz azul de telas e a luz visível que entra pela janela também contribuem para manchas e envelhecimento. Use protetor mesmo em home office.</p>
+            <p>Sim, principalmente se entra luz pela janela ou se você tem tendência a manchas. Protetor com cor ajuda contra luz visível e é ótimo para melasma.</p>
           </div>
         </div>
       </div>
@@ -386,6 +427,11 @@
       </div>
     </div>
 
+    <!-- ETAPA 3 -->
+    <div class="section-divider">
+      <div class="section-tag">🔬 Etapa 3 — Tratamentos Específicos<span>Módulos 11-15 · Problemas & soluções</span></div>
+    </div>
+
     <!-- Módulo 11 -->
     <div class="module" data-module="11">
       <div class="module-header" onclick="toggle(this)">
@@ -431,17 +477,17 @@
           <h3>Sua semana organizada 📅</h3>
           <p>Além da rotina diária (limpeza + hidratação + FPS), distribua os tratamentos ao longo da semana:</p>
           <ul class="checklist">
-            <li><strong>Segunda:</strong> Sérum de vitamina C (manhã) + Retinol (noite)</li>
-            <li><strong>Terça:</strong> Niacinamida (manhã e noite) + Hidratação extra</li>
-            <li><strong>Quarta:</strong> Esfoliação suave (noite) + Máscara hidratante</li>
-            <li><strong>Quinta:</strong> Sérum de vitamina C (manhã) + Ácido hialurônico (noite)</li>
-            <li><strong>Sexta:</strong> Niacinamida + Creme para olhos</li>
+            <li><strong>Segunda:</strong> Vitamina C pela manhã + hidratação caprichada à noite</li>
+            <li><strong>Terça:</strong> Niacinamida + rotina básica para manter a barreira forte</li>
+            <li><strong>Quarta:</strong> Esfoliação suave à noite + hidratante reparador</li>
+            <li><strong>Quinta:</strong> Ácido hialurônico + creme para olhos, sem ativos fortes</li>
+            <li><strong>Sexta:</strong> Retinol à noite, se sua pele já estiver adaptada</li>
             <li><strong>Sábado:</strong> Dia de spa! Máscara caseira + massagem facial + ice roller</li>
             <li><strong>Domingo:</strong> Rotina básica apenas (limpeza + hidratante). Dia de descanso da pele.</li>
           </ul>
           <div class="tip">
             <div class="tip-label">🔄 Importante</div>
-            <p>Essa é uma sugestão de organização. Adapte conforme sua pele responde! Menos é mais — se a pele ficar irritada, reduza a frequência dos ativos.</p>
+            <p>Essa é uma sugestão de organização. Não use retinol e esfoliante na mesma noite. Adapte conforme sua pele responde: se arder, descamar ou ficar sensível, reduza a frequência dos ativos.</p>
           </div>
         </div>
       </div>
@@ -529,10 +575,15 @@
             <li>Hidrate após cada lavagem de mãos</li>
             <li>Use protetor solar nas mãos (manchas solares são comuns ali)</li>
             <li>À noite: creme rico + luvas de algodão = hidratação intensa</li>
-            <li>Cuticulas: nunca corte! Empurre suavemente com palito após o banho</li>
+            <li>Cutículas: evite cortar em excesso. Hidrate e empurre suavemente após o banho</li>
           </ul>
         </div>
       </div>
+    </div>
+
+    <!-- ETAPA 4 -->
+    <div class="section-divider">
+      <div class="section-tag">💫 Etapa 4 — Estilo de Vida<span>Módulos 16-20 · Skincare holístico</span></div>
     </div>
 
     <!-- Módulo 16 -->
@@ -618,7 +669,7 @@
             <li><strong>"Dermatologicamente testado"</strong> — Não significa aprovado. Significa apenas que foi testado. Qualquer produto pode ter esse selo.</li>
             <li><strong>"Natural" nem sempre é melhor</strong> — Limão é natural e queima a pele. O que importa é a formulação, não a origem.</li>
             <li><strong>Validade</strong> — Após aberto, a maioria dos produtos dura 6-12 meses. Vitamina C oxida rápido (ficou amarelo/marrom = descarte).</li>
-            <li><strong>Preço ≠ qualidade</strong> — Cerave, La Roche-Posay linha básica e Principia têm eficácia comprovada por preços justos.</li>
+            <li><strong>Preço ≠ qualidade</strong> — Marcas acessíveis também podem ter fórmulas boas. Compare ingredientes, textura e adaptação na sua pele.</li>
           </ul>
           <div class="tip">
             <div class="tip-label">💡 Kit iniciante sugerido</div>
@@ -688,6 +739,176 @@
       </div>
     </div>
 
+    <!-- ETAPA 5 -->
+    <div class="section-divider">
+      <div class="section-tag">👑 Etapa 5 — Avançado<span>Módulos 21-25 · Nível expert</span></div>
+    </div>
+
+    <!-- Módulo 21 -->
+    <div class="module" data-module="21">
+      <div class="module-header" onclick="toggle(this)">
+        <div class="module-num hotpink">21</div>
+        <div class="module-info">
+          <div class="module-title">Skin Cycling — Rotina Inteligente</div>
+          <div class="module-sub">Alternar ativos sem irritar a pele</div>
+        </div>
+        <div class="module-arrow">▼</div>
+      </div>
+      <div class="module-body">
+        <div class="module-content">
+          <h3>O que é Skin Cycling? 🔄</h3>
+          <p>Skin cycling é uma técnica dermatológica que alterna ativos fortes com noites de recuperação. Evita irritação e maximiza resultados:</p>
+          <ol class="step-list">
+            <li><strong>Noite 1 — Esfoliação</strong> — AHA ou BHA após limpeza. Renova a pele e desobstrui poros.</li>
+            <li><strong>Noite 2 — Retinol</strong> — Aplique retinol em baixa concentração. Estimula colágeno e renovação celular.</li>
+            <li><strong>Noite 3 — Recuperação</strong> — Apenas hidratante rico + ceramidas. A pele descansa e se repara.</li>
+            <li><strong>Noite 4 — Recuperação</strong> — Repita a noite de descanso. Ácido hialurônico + hidratante.</li>
+          </ol>
+          <p>Depois, reinicie o ciclo! Com o tempo, conforme a pele se adapta, você pode reduzir para 1 noite de recuperação.</p>
+          <div class="tip">
+            <div class="tip-label">✅ Para quem é indicado</div>
+            <p>Ideal para quem tem pele sensível ou está começando a usar ativos. Permite usar retinol + ácidos sem destruir a barreira cutânea.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Módulo 22 -->
+    <div class="module" data-module="22">
+      <div class="module-header" onclick="toggle(this)">
+        <div class="module-num sapphire">22</div>
+        <div class="module-info">
+          <div class="module-title">Óleos Faciais — Guia Completo</div>
+          <div class="module-sub">Como usar sem deixar a pele oleosa</div>
+        </div>
+        <div class="module-arrow">▼</div>
+      </div>
+      <div class="module-body">
+        <div class="module-content">
+          <h3>Óleos são aliados, não inimigos 🫒</h3>
+          <p>Muita gente tem medo de usar óleo no rosto, mas os óleos certos podem transformar a pele:</p>
+          <p>🌹 <strong>Rosehip (Rosa Mosqueta)</strong> — Rico em vitamina A e C. Clareia manchas, hidrata e ajuda na regeneração. Bom para todas as peles.</p>
+          <p>🥥 <strong>Jojoba</strong> — Composição parecida com o sebo natural. Regula a oleosidade! Sim, pode ajudar pele oleosa.</p>
+          <p>🫒 <strong>Esqualano</strong> — Leve e não comedogênico. Hidrata sem pesar. Ótimo para peles sensíveis.</p>
+          <p>🌿 <strong>Tea Tree (Melaleuca)</strong> — Antibacteriano natural. Use diluído em pontos com acne. NUNCA puro no rosto inteiro.</p>
+          <p><strong>Como aplicar:</strong> Sempre por último, após o hidratante. 2-3 gotas, aquecidas nas mãos, pressionadas suavemente no rosto. À noite é o melhor momento.</p>
+          <div class="tip">
+            <div class="tip-label">⚠️ Cuidado</div>
+            <p>Óleo de coco NÃO é recomendado para o rosto — é altamente comedogênico (entope os poros). Use apenas no corpo e cabelo.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Módulo 23 -->
+    <div class="module" data-module="23">
+      <div class="module-header" onclick="toggle(this)">
+        <div class="module-num bronze">23</div>
+        <div class="module-info">
+          <div class="module-title">Skincare na Gravidez</div>
+          <div class="module-sub">O que pode e não pode usar</div>
+        </div>
+        <div class="module-arrow">▼</div>
+      </div>
+      <div class="module-body">
+        <div class="module-content">
+          <h3>Gestação segura para a pele 🤰</h3>
+          <p>A gravidez muda a pele drasticamente — mais oleosidade, melasma, sensibilidade. Alguns ativos devem ser evitados:</p>
+          <h3>❌ Evitar na gravidez</h3>
+          <ul class="checklist">
+            <li><strong>Retinol/Retinóides</strong> — Evite durante gestação e amamentação, salvo orientação médica.</li>
+            <li><strong>Ácido salicílico em alta concentração</strong> — Evite peelings e fórmulas fortes. Uso tópico leve deve ser confirmado com o médico.</li>
+            <li><strong>Hidroquinona</strong> — Evite durante a gestação, salvo prescrição médica.</li>
+            <li><strong>Óleos essenciais</strong> — Muitos não são seguros. Evite como precaução.</li>
+          </ul>
+          <h3>✅ Seguros na gravidez</h3>
+          <ul class="checklist">
+            <li><strong>Vitamina C</strong> — Segura e ajuda com manchas da gravidez</li>
+            <li><strong>Ácido hialurônico</strong> — Hidratação segura em qualquer fase</li>
+            <li><strong>Niacinamida</strong> — Controla oleosidade sem riscos</li>
+            <li><strong>Protetor solar</strong> — Mais importante do que nunca! Previne melasma gestacional</li>
+            <li><strong>Ácido azelaico</strong> — Seguro para acne e manchas na gravidez</li>
+          </ul>
+          <div class="tip">
+            <div class="tip-label">👩‍⚕️ Importante</div>
+            <p>Sempre consulte seu obstetra ou dermatologista antes de usar qualquer ativo durante a gestação e amamentação.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Módulo 24 -->
+    <div class="module" data-module="24">
+      <div class="module-header" onclick="toggle(this)">
+        <div class="module-num forest">24</div>
+        <div class="module-info">
+          <div class="module-title">Pele com Rosácea e Sensibilidade</div>
+          <div class="module-sub">Rotina gentil para peles reativas</div>
+        </div>
+        <div class="module-arrow">▼</div>
+      </div>
+      <div class="module-body">
+        <div class="module-content">
+          <h3>Pele sensível merece carinho extra 🩹</h3>
+          <p>Rosácea e pele sensível exigem uma abordagem minimalista. Menos é mais:</p>
+          <p><strong>Sintomas:</strong> Vermelhidão persistente, sensação de ardência, vasinhos visíveis, reação a muitos produtos.</p>
+          <ol class="step-list">
+            <li><strong>Limpador cremoso/leite de limpeza</strong> — Nunca espuma forte. pH próximo ao da pele (5.5).</li>
+            <li><strong>Água termal</strong> — Acalma e refresca. Borrife após a limpeza.</li>
+            <li><strong>Hidratante com ceramidas</strong> — Repara a barreira. Sem fragrância, sem álcool.</li>
+            <li><strong>Protetor solar mineral</strong> — Filtros físicos (óxido de zinco) irritam menos que químicos.</li>
+          </ol>
+          <p><strong>Evite:</strong> Esfoliantes físicos, retinol (no início), vitamina C em alta concentração, produtos com álcool ou perfume.</p>
+          <div class="tip">
+            <div class="tip-label">🌡️ Gatilhos comuns</div>
+            <p>Sol, álcool, comida picante, estresse, banho quente e vento frio pioram a rosácea. Identifique seus gatilhos pessoais com um diário.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Módulo 25 -->
+    <div class="module" data-module="25">
+      <div class="module-header" onclick="toggle(this)">
+        <div class="module-num magenta">25</div>
+        <div class="module-info">
+          <div class="module-title">Montando Sua Rotina Personalizada <span class="badge">FINAL</span></div>
+          <div class="module-sub">Seu plano de skincare sob medida</div>
+        </div>
+        <div class="module-arrow">▼</div>
+      </div>
+      <div class="module-body">
+        <div class="module-content">
+          <h3>Agora é com você! 🎯</h3>
+          <p>Você aprendeu tudo que precisa. Agora vamos montar SUA rotina ideal com base no seu tipo de pele:</p>
+          <h3>Pele Oleosa/Acneica</h3>
+          <ul class="checklist">
+            <li>Manhã: Gel de limpeza + Niacinamida + FPS oil-free</li>
+            <li>Noite: Limpeza dupla + BHA (dias alternados) + Hidratante gel</li>
+          </ul>
+          <h3>Pele Seca</h3>
+          <ul class="checklist">
+            <li>Manhã: Leite de limpeza + Ácido hialurônico + Creme hidratante + FPS</li>
+            <li>Noite: Limpeza suave + Retinol (2x/sem) + Creme rico + Óleo facial</li>
+          </ul>
+          <h3>Pele Mista</h3>
+          <ul class="checklist">
+            <li>Manhã: Gel de limpeza + Niacinamida + Hidratante leve + FPS</li>
+            <li>Noite: Limpeza dupla + Vitamina C ou Retinol (alternados) + Hidratante</li>
+          </ul>
+          <h3>Pele Sensível</h3>
+          <ul class="checklist">
+            <li>Manhã: Leite de limpeza + Água termal + Hidratante com ceramidas + FPS mineral</li>
+            <li>Noite: Limpeza cremosa + Ácido hialurônico + Creme calmante</li>
+          </ul>
+          <div class="tip">
+            <div class="tip-label">🏆 Regra de ouro final</div>
+            <p>A melhor rotina é aquela que você CONSEGUE manter todos os dias. Comece com 3 produtos (limpeza + hidratante + FPS), domine a consistência, e só depois adicione ativos. Sua pele vai agradecer! ✨</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <p class="disclaimer">
       ⚠️ Este conteúdo é educacional e informativo. Não substitui orientação de um dermatologista. 
       Resultados individuais podem variar. Consulte um profissional para condições específicas de pele.<br>
@@ -700,13 +921,50 @@
       const mod = header.closest('.module');
       mod.classList.toggle('active');
       updateProgress();
+      saveProgress();
     }
+
     function updateProgress() {
       const total = document.querySelectorAll('.module').length;
       const opened = document.querySelectorAll('.module.active').length;
       const pct = Math.round((opened / total) * 100);
       document.getElementById('progressBar').style.width = pct + '%';
     }
+
+    function saveProgress() {
+      const opened = Array.from(document.querySelectorAll('.module.active')).map(module => module.dataset.module);
+      localStorage.setItem('essentialGlowOpenedModules', JSON.stringify(opened));
+    }
+
+    function restoreProgress() {
+      const saved = JSON.parse(localStorage.getItem('essentialGlowOpenedModules') || 'null');
+      if (!Array.isArray(saved)) return;
+      document.querySelectorAll('.module').forEach(module => {
+        module.classList.toggle('active', saved.includes(module.dataset.module));
+      });
+    }
+
+    function getAccessUrl() {
+      return new URL('/conteudo.html', window.location.origin).href;
+    }
+
+    async function copyAccessLink(button) {
+      const link = getAccessUrl();
+      try {
+        await navigator.clipboard.writeText(link);
+        const original = button.textContent;
+        button.textContent = 'Copiado!';
+        setTimeout(() => { button.textContent = original; }, 1800);
+      } catch {
+        window.prompt('Copie seu link de acesso:', link);
+      }
+    }
+
+    restoreProgress();
+    document.getElementById('accessUrl').textContent = getAccessUrl();
+    document.querySelectorAll('[data-copy-access]').forEach(button => {
+      button.addEventListener('click', () => copyAccessLink(button));
+    });
     updateProgress();
   </script>
 </body>
