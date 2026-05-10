@@ -1,18 +1,34 @@
 /**
- * InfinitePay Checkout - Links diretos
+ * InfinitePay Checkout via Netlify Function
  * 
- * Cada plano tem um link de checkout fixo criado no painel da InfinitePay.
+ * Chama a serverless function que cria o link de checkout
+ * via API da InfinitePay (server-side, sem CORS).
  */
-
-const CHECKOUT_LINKS = {
-  mensal: 'https://checkout.infinitepay.io/henrique-ricardo-d94/47gHsiFvIK',
-}
 
 /**
- * Retorna a URL de checkout do plano
- * @param {string} planId - ID do plano (mensal)
- * @returns {string|null} URL do checkout ou null se não configurado
+ * Cria um link de checkout via API InfinitePay
+ * @param {object} options
+ * @param {string} options.planId - ID do plano
+ * @returns {Promise<string>} URL do checkout
  */
-export function getCheckoutUrl(planId) {
-  return CHECKOUT_LINKS[planId] || null
+export async function createCheckoutLink({ planId }) {
+  const response = await fetch('/.netlify/functions/checkout', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ planId }),
+  })
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}))
+    console.error('Checkout error:', errorData)
+    throw new Error(`Erro ao criar checkout: ${response.status}`)
+  }
+
+  const data = await response.json()
+
+  if (!data.url) {
+    throw new Error('URL de checkout não retornada')
+  }
+
+  return data.url
 }

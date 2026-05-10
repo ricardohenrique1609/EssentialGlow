@@ -2,7 +2,7 @@ import React, { useState, useMemo, useCallback } from 'react'
 import { Check, Sparkles, Shield, Clock, Infinity, ChevronRight, Copy, X, QrCode, Smartphone, ExternalLink, CreditCard, Loader2 } from 'lucide-react'
 import { QRCodeSVG } from 'qrcode.react'
 import { generatePixPayload } from '../utils/pix'
-import { getCheckoutUrl } from '../utils/infinitepay'
+import { createCheckoutLink } from '../utils/infinitepay'
 
 const features = [
   'Dicas completas de skincare para o dia a dia',
@@ -46,11 +46,10 @@ const guarantees = [
 
 function PaymentModal({ plan, onClose }) {
   const [copied, setCopied] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
 
-  const checkoutUrl = getCheckoutUrl(plan.id)
-  const hasCheckoutLink = !!checkoutUrl
-
-  // PIX payload (fallback when no checkout link exists)
+  // PIX payload (fallback)
   const pixPayload = useMemo(() => {
     return generatePixPayload({
       pixKey: PIX_KEY,
@@ -61,9 +60,18 @@ function PaymentModal({ plan, onClose }) {
     })
   }, [plan])
 
-  const handleCheckout = () => {
-    if (checkoutUrl) {
-      window.location.href = checkoutUrl
+  const handleCheckout = async () => {
+    setLoading(true)
+    setError(null)
+    try {
+      const url = await createCheckoutLink({
+        planId: plan.id,
+      })
+      window.location.href = url
+    } catch (err) {
+      console.error('Checkout error:', err)
+      setError('Não foi possível gerar o link de pagamento. Use o PIX abaixo.')
+      setLoading(false)
     }
   }
 
@@ -107,41 +115,45 @@ function PaymentModal({ plan, onClose }) {
           R$ {plan.price}
         </p>
 
-        {hasCheckoutLink ? (
-          <>
-            {/* InfinitePay Checkout Button */}
-            <button
-              onClick={handleCheckout}
-              className="w-full flex items-center justify-center gap-2.5 py-4 rounded-2xl font-medium text-sm transition-all active:scale-95 bg-gradient-to-r from-rose-400 to-pink-500 text-white shadow-lg shadow-rose-200/40 hover:shadow-rose-300/50 mb-3"
-            >
+        {/* InfinitePay Checkout Button */}
+        <button
+          onClick={handleCheckout}
+          disabled={loading}
+          className={`w-full flex items-center justify-center gap-2.5 py-4 rounded-2xl font-medium text-sm transition-all mb-3 cursor-pointer ${
+            loading
+              ? 'bg-gray-300 text-gray-500 cursor-wait'
+              : 'active:scale-95 bg-gradient-to-r from-rose-400 to-pink-500 text-white shadow-lg shadow-rose-200/40 hover:shadow-rose-300/50'
+          }`}
+        >
+          {loading ? (
+            <>
+              <Loader2 size={16} className="animate-spin" />
+              Gerando link seguro...
+            </>
+          ) : (
+            <>
               <CreditCard size={16} />
               Pagar com Pix ou Cartão
               <ExternalLink size={12} className="opacity-60" />
-            </button>
+            </>
+          )}
+        </button>
 
-            <p className="text-[10px] text-gray-400 font-light mb-5">
-              Você será redirecionado para o checkout seguro da InfinitePay
+        <p className="text-[10px] text-gray-400 font-light mb-4">
+          Você será redirecionado para o checkout seguro da InfinitePay
+        </p>
+
+        {/* Error message + PIX fallback */}
+        {error && (
+          <div className="mb-4">
+            <p className="text-xs text-amber-600 bg-amber-50 border border-amber-200 rounded-xl p-3 mb-4">
+              {error}
             </p>
 
-            {/* Security badges */}
-            <div className="flex items-center justify-center gap-4 mb-2">
-              <div className="flex items-center gap-1.5">
-                <Shield size={12} className="text-green-500" />
-                <span className="text-[10px] text-gray-400">Pagamento seguro</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <Check size={12} className="text-green-500" />
-                <span className="text-[10px] text-gray-400">Dados protegidos</span>
-              </div>
-            </div>
-          </>
-        ) : (
-          <>
-            {/* PIX QR Code (for plans without checkout link yet) */}
             <div className="bg-white border-2 border-rose-100 rounded-2xl p-4 mb-4 inline-block mx-auto">
               <QRCodeSVG
                 value={pixPayload}
-                size={180}
+                size={160}
                 level="M"
                 includeMargin={false}
                 bgColor="#ffffff"
@@ -156,39 +168,37 @@ function PaymentModal({ plan, onClose }) {
               </p>
             </div>
 
-            {/* Divider */}
-            <div className="flex items-center gap-3 mb-3">
-              <div className="flex-1 h-px bg-gray-100" />
-              <span className="text-[10px] text-gray-300 font-medium tracking-widest uppercase">ou</span>
-              <div className="flex-1 h-px bg-gray-100" />
-            </div>
-
-            {/* Pix Copia e Cola */}
-            <div className="bg-rose-50/80 border border-rose-100 rounded-2xl p-3 mb-4">
+            <div className="bg-rose-50/80 border border-rose-100 rounded-2xl p-3 mb-3">
               <p className="text-[10px] text-rose-400 font-medium tracking-widest uppercase mb-1.5">Pix Copia e Cola</p>
               <p className="text-[10px] font-mono text-gray-500 break-all leading-relaxed select-all line-clamp-2 overflow-hidden">
                 {pixPayload}
               </p>
             </div>
 
-            {/* Copy button */}
             <button
               onClick={handleCopyPix}
               className={`w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl font-medium text-sm transition-all active:scale-95 ${
                 copied
                   ? 'bg-green-500 text-white shadow-lg shadow-green-200/50'
-                  : 'bg-gradient-to-r from-rose-400 to-pink-500 text-white shadow-lg shadow-rose-200/40 hover:shadow-rose-300/50'
+                  : 'bg-gradient-to-r from-rose-400 to-pink-500 text-white shadow-lg shadow-rose-200/40'
               }`}
             >
-              <Copy size={14} />
-              {copied ? 'Código copiado! ✓' : 'Copiar código Pix'}
+              {copied ? <><Check size={14} /> Copiado!</> : <><Copy size={14} /> Copiar código Pix</>}
             </button>
-
-            <p className="text-[11px] text-gray-400 font-light mt-3 leading-relaxed">
-              Após o pagamento, envie o comprovante por WhatsApp para receber seu acesso.
-            </p>
-          </>
+          </div>
         )}
+
+        {/* Security badges */}
+        <div className="flex items-center justify-center gap-4 mb-2">
+          <div className="flex items-center gap-1.5">
+            <Shield size={12} className="text-green-500" />
+            <span className="text-[10px] text-gray-400">Pagamento seguro</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <Check size={12} className="text-green-500" />
+            <span className="text-[10px] text-gray-400">Dados protegidos</span>
+          </div>
+        </div>
       </div>
     </div>
   )
